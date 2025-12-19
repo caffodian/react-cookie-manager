@@ -26,20 +26,28 @@ export const getBlockedHosts = (
 };
 
 export const getBlockedKeywords = (
-  preferences: CookieCategories | null
+  preferences: CookieCategories | null,
+  minKeywordLength: number = 4
 ): string[] => {
   if (!preferences) {
     // If no preferences set, block everything
-    return Object.values(trackers.categories)
+    const allKeywords = Object.values(trackers.categories)
       .flat()
       .map((host) => host.replace(/\.[^.]+$/, ""));
+    
+    // Filter out keywords shorter than the minimum length to prevent false positives
+    // For example, with default minKeywordLength=4, "com" from com.com is filtered out
+    return [...new Set(allKeywords)].filter(
+      (keyword) => keyword.length >= minKeywordLength
+    );
   }
 
   const blockedHosts = getBlockedHosts(preferences);
   // Convert hosts to keywords by removing the TLD
-  const keywords = [
-    ...new Set(blockedHosts.map((host) => host.replace(/\.[^.]+$/, ""))),
-  ];
+  const keywords = blockedHosts.map((host) => host.replace(/\.[^.]+$/, ""));
 
-  return keywords;
+  // Filter out keywords shorter than the minimum length to prevent false positives
+  return [...new Set(keywords)].filter(
+    (keyword) => keyword.length >= minKeywordLength
+  );
 };

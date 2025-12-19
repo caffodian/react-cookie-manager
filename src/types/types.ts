@@ -291,6 +291,14 @@ export interface CookieConsenterProps {
   blockedDomains?: string[];
 
   /**
+   * Minimum length for keywords generated from blocked domains
+   * Keywords shorter than this length will be filtered out to prevent false positives
+   * For example, with default value of 4, "com" (from com.com) will be filtered out
+   * @default 4
+   */
+  minBlockedKeywordLength?: number;
+
+  /**
    * Whether to force show the cookie consent banner
    * @default false
    */

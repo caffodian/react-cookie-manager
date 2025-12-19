@@ -427,6 +427,7 @@ These are the props for the `CookieManager` component (the main component you sh
 | `theme`                    | 'light' \| 'dark'                        | 'light'          | Color theme                               |
 | `disableAutomaticBlocking` | boolean                                  | false            | Disable automatic tracking prevention     |
 | `blockedDomains`           | string[]                                 | []               | Additional domains/hosts to block         |
+| `minBlockedKeywordLength`  | number                                   | 4                | Minimum length for generated blocking keywords (prevents false positives) |
 | `cookieKitId`              | string                                   | -                | Your CookieKit.io integration ID          |
 | `userId`                   | string                                   | -                | Optional user id for CookieKit analytics  |
 | `onManage`                 | (preferences?: CookieCategories) => void | -                | Callback when preferences are updated     |

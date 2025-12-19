@@ -96,6 +96,7 @@ export interface CookieManagerProps
   onDecline?: () => void;
   disableAutomaticBlocking?: boolean;
   blockedDomains?: string[];
+  minBlockedKeywordLength?: number;
   expirationDays?: number;
   /**
    * Translations that will be used in the consent UI. It can be one of:
@@ -195,6 +196,7 @@ export const CookieManager: React.FC<CookieManagerProps> = ({
   onDecline,
   disableAutomaticBlocking = false,
   blockedDomains = [],
+  minBlockedKeywordLength = 4,
   expirationDays = 365,
   enableFloatingButton = false,
   theme = "light",
@@ -409,7 +411,7 @@ export const CookieManager: React.FC<CookieManagerProps> = ({
       ];
 
       const blockedKeywords = [
-        ...getBlockedKeywords(currentPreferences),
+        ...getBlockedKeywords(currentPreferences, minBlockedKeywordLength),
         ...blockedDomains,
       ];
 
@@ -601,7 +603,7 @@ export const CookieManager: React.FC<CookieManagerProps> = ({
         ...blockedDomains,
       ];
       const blockedKeywords = [
-        ...getBlockedKeywords(preferences),
+        ...getBlockedKeywords(preferences, minBlockedKeywordLength),
         ...blockedDomains,
       ];
 
